@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> LOGIN PAGE </title> 
+    <link rel="stylesheet" href="the-style/login.css">
+  </head>
+  <body>
+    <div class="glass-container">
+      <h2 class="front">Login</h2> 
+        <form>
+
+       <div class="input-group">
+          <input type="text" placeholder="" id="username" name="username">
+          <span> Username</span> 
+        </div>
+
+       <div class="input-group"> 
+         <input type="password" placeholder="" id="pwdInput" name="password">
+         <span > Password</span>
+         <button type="button" onclick="togglePwd('pwdInput', this)" class="eye-btn">
+           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2">
+             <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+             <circle cx="12" cy="12" r="3"/>
+           </svg>
+         </button>
+       </div> 
+
+       <div>
+         <input type="checkbox" id="terms" name="terms">
+         <label for="terms"> REMEMBER ME </label>
+       </div>
+
+       <div>
+          <button class="sign-in-button" type="button" onclick="goNext()" > SIGN IN </button>
+       </div>
+
+       <div class="links">
+         <a class="forget" href="forget-password.html" >
+           Forget Password
+         </a>
+
+         <a class="create" href="create-account.html"> 
+           Create New Account
+         </a>
+       </div>
+       
+      </form>
+    </div>
+
+     <script>
+      function goNext() {
+          const username = document.getElementById('username').value.trim();
+         const pwd = document.getElementById('pwdInput').value.trim();
+
+      if (username === '' || pwd === '') {
+        showToast('Please fill in all fields.');
+        return;
+      }
+
+          // Check fixed users list
+      const USERS = [
+       { username: 'skynikeadetuyi@gmail.com', password: 'Adetuyi09' },
+       { username: 'sarah', password: 'hello456' },
+       { username: 'mike', password: 'secret789' }
+     ];
+       const foundInList = USERS.find(u => u.username === username && u.password === pwd);
+
+         // Check users who registered via create account page
+       const savedUsers = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
+       const foundInStorage = savedUsers.find(u => u.username === username && u.password === pwd);
+
+      if (!foundInList && !foundInStorage) {
+       showToast('Incorrect username or password.');
+       return;
+      }
+
+      window.location.href = 'sign-in.html';
+}
+
+      function showToast(message) {
+        const toast = document.getElementById('toast');
+        toast.textContent = message;
+        toast.classList.add('show');
+        setTimeout(function () {
+          toast.classList.remove('show');
+        }, 3000);
+      }
+
+      function togglePwd(inputId, btn) {
+        const input = document.getElementById(inputId);
+        if (input.type === 'password') {
+          input.type = 'text';
+          btn.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2">
+            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
+            <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
+            <line x1="1" y1="1" x2="23" y2="23"/>
+          </svg>`;
+        } else {
+          input.type = 'password';
+          btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>`;
+        }
+      }
+    </script>
+
+      <div class="toast" id="toast">Wrong username or password.</div>
+
+  </body>
+</html>

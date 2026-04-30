@@ -1,0 +1,157 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgb(155, 152, 157) ;
+  
+}
+
+.glass-container{
+  position: relative;
+  width: 460px;
+  padding: 50px;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.4);
+  text-align: center;
+}
+
+h2{
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 50px;
+}
+
+.input-group{
+  position: relative;
+  margin: 20px 0;
+}
+
+.input-group input{
+  width: 100%;
+  padding-top: 20px; 
+  padding-bottom: 10px;
+  padding-left: 10px;
+  background: none;
+  border: none;
+  outline: none;
+  color: black;
+  font-size: 18px;
+  border-bottom: 2px solid black;
+  transition: 0.5s;
+}
+
+.input-group :focus{
+  color: black;
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.4);
+}
+
+.input-group span{
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  font-size: 20px;
+  pointer-events: none;
+  transition: 0.5s;
+  transform: translateY(-50%);
+  color: black;
+  }
+
+  .input-group input:focus + span,
+  .input-group input:not(:placeholder-shown) + span{
+    top: 5px;
+    font-size: 12px;
+    color: black;
+  }
+.next-button{
+  background-color: rgb(40, 40, 98);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-right: 100px;
+  padding-left: 100px;
+  margin-right: 50px;
+  margin-left: 50px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  transition: opacity 0.3s;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.next-button:hover{
+   opacity: 0.95;
+}
+
+.next-button:active{
+  opacity: 0.5;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+}
+
+.eye-btn {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  color: black;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  z-index: 10;
+  padding: 0;
+  }
+
+.eye-btn:hover{
+  background: transparent !important;
+}
+
+.eye-btn:active{
+  color: black;
+  background: transparent !important;
+  outline: none;
+}  
+
+.toast {
+  position: fixed;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: #22c55e;
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  z-index: 999;
+  white-space: nowrap;
+}
+
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+.eye-btn svg {
+  width: 14px;
+  height: 14px;
+}

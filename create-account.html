@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> New account </title>
+    <link rel="stylesheet" href="the-style/create.css">
+  </head>
+  <body>
+    <div class="glass-container">
+      <h2 class="front">New Account</h2> 
+      <form>
+
+       <div class="input-group">
+          <input type="text" placeholder="" id="email" name="email">
+          <span> Email</span> 
+        </div>
+
+       <div class="input-group"> 
+         <input type="password" placeholder="" id="pwdInput" name="password">
+         <span > Password</span>
+         <button type="button" onclick="togglePwd('pwdInput', this)" class="eye-btn">
+           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2">
+             <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+             <circle cx="12" cy="12" r="3"/>
+           </svg>
+         </button>
+       </div> 
+
+       <div class="input-group"> 
+         <input type="password" placeholder="" id="confirmPwdInput" name="confirm_password">
+         <span>Confirm Password</span>
+         <button type="button" onclick="togglePwd('confirmPwdInput', this)" class="eye-btn">
+           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2">
+             <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+             <circle cx="12" cy="12" r="3"/>
+           </svg>
+         </button>
+       </div>
+
+       <div>
+        <button class="next-button" type="button" onclick="goNext()"> Next</button>
+       </div>
+
+       
+       </div>
+      </form>
+    </div>
+
+    <script>
+     function goNext() {
+       const email = document.getElementById('email').value.trim();
+       const pwd = document.getElementById('pwdInput').value.trim();
+       const confirmPwd = document.getElementById('confirmPwdInput').value.trim();
+
+     if (email === '' || pwd === '' || confirmPwd === '') {
+       alert('Please fill in all fields.');
+       return;
+      }
+
+     if (pwd !== confirmPwd) {
+       alert('Passwords do not match.');
+       return;
+      }
+
+     // Save new user to localStorage
+      const savedUsers = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
+      savedUsers.push({ username: email, password: pwd });
+      localStorage.setItem('registeredUsers', JSON.stringify(savedUsers));
+
+     showToast();
+       setTimeout(function () {
+       window.location.href = 'login.html';
+       }, 2000);
+      }
+
+     function showToast() {
+       const toast = document.getElementById('toast');
+       toast.classList.add('show');
+       setTimeout(function () {
+       toast.classList.remove('show');
+       }, 2000);
+      }
+
+     function togglePwd(inputId) {
+       const input = document.getElementById(inputId);
+       input.type = input.type === 'password' ? 'text' : 'password';
+     }
+
+           function togglePwd(inputId, btn) {
+        const input = document.getElementById(inputId);
+        if (input.type === 'password') {
+          input.type = 'text';
+          btn.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2">
+            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
+            <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
+            <line x1="1" y1="1" x2="23" y2="23"/>
+          </svg>`;
+        } else {
+          input.type = 'password';
+          btn.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>`;
+        }
+      }
+   </script>
+
+   <div class="toast" id="toast">Account created successfully!</div>
+
+  </body>
+</html>
